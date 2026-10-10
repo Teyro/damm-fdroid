@@ -1,0 +1,10 @@
+AuthorName: Teyro
+Categories:
+  - Science & Education
+SourceCode: https://github.com/Teyro/DammBoard
+IssueTracker: https://github.com/Teyro/DammBoard/issues
+Name: DammBoard
+Summary: Digitale Tafel für interaktive Displays
+Description: |-
+  Digitale Tafel-App für die Schule Öjendorfer Damm – gemacht für große Touch-Displays
+  (Clevertouch, CTOUCH): Stifte, Stempel, Arbeitsblätter, Extras und automatisches Speichern.

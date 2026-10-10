@@ -1,0 +1,107 @@
+name: F-Droid-Repo
+
+# Holt die neuesten Releases der Damm-Apps, baut daraus den signierten F-Droid-Index und
+# veröffentlicht ihn über GitHub Pages. Neu gebaut wird nur, wenn sich eine Version geändert hat.
+on:
+  schedule:
+    - cron: "17 */2 * * *"
+  workflow_dispatch:
+    inputs:
+      erzwingen:
+        description: "Auch ohne neue Version neu bauen"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  APPS: "DammBoard DammZeit DammLauncher"
+  REPO_URL: https://teyro.github.io/damm-fdroid/repo
+  FINGERABDRUCK: db7f158b6eb2c7eb17e79aa4a9ae0e9487c3c2228fe7de60b37a1979408c0604
+
+jobs:
+  repo:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.seite.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Neueste Versionen ermitteln
+        id: stand
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          STAND=""
+          for app in $APPS; do
+            tag=$(gh release view -R "Teyro/$app" --json tagName -q .tagName)
+            STAND="${STAND}${app}=${tag};"
+          done
+          echo "Aktuell: $STAND"
+          ALT=$(curl -fsS https://teyro.github.io/damm-fdroid/stand.txt || true)
+          echo "Veröffentlicht: $ALT"
+          echo "stand=$STAND" >> "$GITHUB_OUTPUT"
+          if [ "$STAND" = "$ALT" ] && [ "${{ inputs.erzwingen }}" != "true" ]; then
+            echo "neu=nein" >> "$GITHUB_OUTPUT"
+          else
+            echo "neu=ja" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: F-Droid-Werkzeuge installieren
+        if: steps.stand.outputs.neu == 'ja'
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q fdroidserver qrencode
+
+      - name: APKs holen
+        if: steps.stand.outputs.neu == 'ja'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p repo/icons
+          cp icon.png repo/icons/icon.png
+          for app in $APPS; do
+            tag=$(gh release view -R "Teyro/$app" --json tagName -q .tagName)
+            gh release download "$tag" -R "Teyro/$app" -p "$app.apk" -O "repo/${app}_${tag}.apk"
+          done
+          ls -l repo
+
+      - name: Index bauen und signieren
+        if: steps.stand.outputs.neu == 'ja'
+        env:
+          FDROID_KEYSTORE_PASS: ${{ secrets.FDROID_KEYSTORE_PASS }}
+        run: |
+          echo "${{ secrets.FDROID_KEYSTORE_BASE64 }}" | base64 -d > keystore.p12
+          chmod 600 config.yml keystore.p12
+          fdroid update --pretty
+          rm -f keystore.p12
+          ls -l repo
+
+      - name: Webseite zusammenstellen
+        if: steps.stand.outputs.neu == 'ja'
+        run: |
+          mkdir -p site
+          cp -r repo site/repo
+          echo -n "${{ steps.stand.outputs.stand }}" > site/stand.txt
+          LINK="$REPO_URL?fingerprint=$FINGERABDRUCK"
+          qrencode -s 8 -m 2 -o site/qr.png "$LINK"
+          sed -e "s|@LINK@|$LINK|g" -e "s|@FP@|$FINGERABDRUCK|g" -e "s|@STAND@|${{ steps.stand.outputs.stand }}|g" seite/index.html > site/index.html
+          touch site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+        if: steps.stand.outputs.neu == 'ja'
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.stand.outputs.neu == 'ja'
+        with:
+          path: site
+      - id: seite
+        if: steps.stand.outputs.neu == 'ja'
+        uses: actions/deploy-pages@v4

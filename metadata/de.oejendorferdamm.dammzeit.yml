@@ -1,0 +1,13 @@
+AuthorName: Teyro
+Categories:
+  - Science & Education
+  - Time
+License: GPL-3.0-only
+SourceCode: https://github.com/Teyro/DammZeit
+IssueTracker: https://github.com/Teyro/DammZeit/issues
+Name: DammZeit
+Summary: Visueller Timer im Stil des Time Timers, mit Stoppuhr
+Description: |-
+  Großer, gut sichtbarer Timer für interaktive Displays im Klassenraum: die Zeitscheibe
+  schrumpft sekundengenau, dazu Stoppuhr mit Runden und Bestenliste (Siegertreppchen).
+  Widgets für den Startbildschirm.

@@ -1,0 +1,15 @@
+AuthorName: Teyro
+Categories:
+  - System
+License: GPL-3.0-only
+SourceCode: https://github.com/Teyro/DammLauncher
+IssueTracker: https://github.com/Teyro/DammLauncher/issues
+Name: DammLauncher
+Summary: Schlanker Startbildschirm für interaktive Schul-Displays
+Description: |-
+  Launcher für 75-Zoll-Displays (Clevertouch, CTOUCH, ab Android 8): frei einstellbares Raster,
+  große Bedienung, Widgets, PIN, Export/Import und zentrale Verteilung der Einrichtung über
+  IServ (WebDAV). Keine Bibliotheken, kein Tracking, sehr kleine APK.
+
+  Hinweis: DammLauncher prüft zusätzlich selbst auf Updates und sperrt sich, wenn eine neuere
+  Version schon länger als 7 Tage verfügbar ist (Update-Pflicht, siehe README des Projekts).
