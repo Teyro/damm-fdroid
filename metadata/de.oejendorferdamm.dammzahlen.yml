@@ -1,0 +1,13 @@
+AuthorName: Teyro
+Categories:
+  - Science & Education
+License: GPL-3.0-only
+SourceCode: https://github.com/Teyro/DammZahlen
+IssueTracker: https://github.com/Teyro/DammZahlen/issues
+Name: DammZahlen
+Summary: Mathe-Legetafel für Klasse 1 und 2 (Zehnerfeld, Zwanzigerfeld, Zehnerübergang)
+Description: |-
+  Mathe-Legetafel für interaktive Tafeln im Grundschul-Unterricht (Bildungsplan Hamburg):
+  Zehner-, Zwanziger- und Hunderterfeld mit Wendeplättchen, Doppeldecker-Bus mit Kindern,
+  Rechenrahmen, Zahlenstrahl und Rechenstrich. Der Zehnerübergang wird Schritt für Schritt
+  gezeigt. Blitzblick und Kindermodus mit PIN. Keine Namen, keine Lernstände, kein Konto.

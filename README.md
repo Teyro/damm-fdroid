@@ -1,6 +1,6 @@
 # Damm-Apps – F-Droid-Repo
 
-Eigenes F-Droid-Repo für **DammBoard**, **DammZeit** und **DammLauncher**. Ein Workflow holt alle zwei
+Eigenes F-Droid-Repo für **DammBoard**, **DammZeit**, **DammLauncher** und **DammZahlen**. Ein Workflow holt alle zwei
 Stunden die neuesten GitHub-Releases, baut den signierten Index mit `fdroidserver` und
 veröffentlicht ihn über GitHub Pages.
 

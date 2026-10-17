@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  APPS: "DammBoard DammZeit DammLauncher"
+  APPS: "DammBoard DammZeit DammLauncher DammZahlen"
   REPO_URL: https://teyro.github.io/damm-fdroid/repo
   FINGERABDRUCK: db7f158b6eb2c7eb17e79aa4a9ae0e9487c3c2228fe7de60b37a1979408c0604
 
