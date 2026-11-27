@@ -1,0 +1,13 @@
+AuthorName: Teyro
+Categories:
+  - System
+License: GPL-3.0-only
+SourceCode: https://github.com/Teyro/DammKeyboard
+IssueTracker: https://github.com/Teyro/DammKeyboard/issues
+Name: DammKeyboard
+Summary: Schlanke Bildschirmtastatur im Stil der CTOUCH-Boards – ohne Internet
+Description: |-
+  Eigene, sehr kleine Tastatur der Schule am Öjendorfer Damm, Optik wie die CTOUCH-Tastatur der Boards.
+  Keine Internet-Berechtigung, keine Wortvorschläge, nichts wird gespeichert. Keine Tastentöne.
+  Auf großen Bildschirmen schwebend (Griffe zum Verschieben), QWERTZ mit Umlauten per langem Druck,
+  Zahlen und Zeichen, Zahlenblock für Zahlfelder, Emoji, Cursor per Wischen über die Leertaste.
